@@ -50,7 +50,8 @@ def main():
         gpu_memory_utilization=config.gpu_memory_utilization,
         enable_prefix_caching=True,
         seed=config.seed,
-        tensor_parallel_size=num_gpus,
+        tensor_parallel_size=max(1, num_gpus),
+        # device='cpu'
     )
     prm = load_prm(config)
 
@@ -71,4 +72,6 @@ def main():
 
 
 if __name__ == "__main__":
+    from huggingface_hub import login
+    login()
     main()
